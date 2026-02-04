@@ -7,7 +7,11 @@ function sortear(){
     }
     let mensagemNumerosSorteados = document.getElementById('resultado');
     mensagemNumerosSorteados.innerHTML = `Números sorteados: ${numerosSorteados}`;
-    numerosSorteados = [];
+
+    let botaoReiniciar = document.getElementById('btn-reiniciar');
+    botaoReiniciar.classList.remove('container__botao-desabilitado');
+    botaoReiniciar.classList.add('container__botao');
+
 }
 
 //Funcao para gerar numero aleatório e adicionar na lista de numerosSorteados se nao for repetido (se ainda nao tiver o numero na lista)
@@ -20,6 +24,28 @@ function gerarNumeroAleatorio(){
     } else {
         numerosSorteados.push(numeroEscolhido);
     }
+}
+
+function reiniciar(){
+
+    
+    let botaoReiniciar = document.getElementById('btn-reiniciar');
+    botaoReiniciar.classList.remove('container__botao');
+    botaoReiniciar.classList.add('container__botao-desabilitado');
+
+    let mensagemNumerosSorteados = document.getElementById('resultado');
+    mensagemNumerosSorteados.innerHTML = 'Números sorteados:  nenhum até agora'
+    numerosSorteados = [];
+
+    let quantidadeNumeros = document.getElementById('quantidade');
+    quantidadeNumeros.value = '';
+
+    let numeroMax = document.getElementById('ate');
+    numeroMax.value = '';
+    
+    let numeroMin = document.getElementById('de');
+    numeroMin.value = '';
+
 }
 
 let numerosSorteados = [];
