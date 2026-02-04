@@ -12,9 +12,9 @@ function sortear(){
 
 //Funcao para gerar numero aleatório e adicionar na lista de numerosSorteados se nao for repetido (se ainda nao tiver o numero na lista)
 function gerarNumeroAleatorio(){
-    let numeroMax = document.getElementById('ate').value;
-    let numeroMin = document.getElementById('de').value;
-    let numeroEscolhido = parseInt(Math.random()*numeroMax)+1;
+    let numeroMax = parseInt(document.getElementById('ate').value);
+    let numeroMin = parseInt(document.getElementById('de').value);
+    let numeroEscolhido = parseInt(Math.random()*(numeroMax - numeroMin + 1)+numeroMin);
     if (numerosSorteados.includes(numeroEscolhido)){
         return gerarNumeroAleatorio(numeroMin,numeroMax);
     } else {
