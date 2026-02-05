@@ -1,26 +1,26 @@
-//Funcao para sortear quantidade de numeros especificada ao clicar no botao e mostrar na tela
+//Funcao para sortear quantidade de numeros especificada ao clicar no botao e mostrar na tela e ativar o botao reiniciar
 function sortear(){
     let numeroMax = parseInt(document.getElementById('ate').value);
     let numeroMin = parseInt(document.getElementById('de').value);
     let quantidadeNumeros = document.getElementById('quantidade').value;
-    let mensagemNumerosSorteados
     if (quantidadeNumeros > numeroMax){
 
-        mensagemNumerosSorteados = document.getElementById('resultado');
-        mensagemNumerosSorteados.innerHTML = 'A quantidade de números não pode ser maior que o número máximo!';
+        respostaBotaoSortear('A quantidade de números não pode ser maior que o número máximo!');
         
     }else{
         for (i = quantidadeNumeros;i>0;i--){
             gerarNumeroAleatorio(numeroMax,numeroMin);
         }
-        mensagemNumerosSorteados = document.getElementById('resultado');
-        mensagemNumerosSorteados.innerHTML = `Números sorteados: ${numerosSorteados}`;
-
-        let botaoReiniciar = document.getElementById('btn-reiniciar');
-        botaoReiniciar.classList.remove('container__botao-desabilitado');
-        botaoReiniciar.classList.add('container__botao');
+        respostaBotaoSortear(`Números sorteados: ${numerosSorteados}`);
+        ativarDesativarBotaoReiniciar('container__botao-desabilitado','container__botao');
     }
 
+}
+
+//Funcao para imprimir a resposta na tela ao clicar no botao  sortear
+function respostaBotaoSortear(mensagem){
+    let mensagemNumerosSorteados = document.getElementById('resultado');
+    mensagemNumerosSorteados.innerHTML = `${mensagem}`;
 }
 
 //Funcao para gerar numero aleatório e adicionar na lista de numerosSorteados se nao for repetido (se ainda nao tiver o numero na lista)
@@ -33,9 +33,23 @@ function gerarNumeroAleatorio(numMax, numMin){
     }
 }
 
+//Funcao para reiniciar e limpar valores nas caixas, limpar a lista de numeros sorteados e desativar o botao reiniciar
 function reiniciar(){
     numerosSorteados = [];
+    reiniciarTexto();
+    ativarDesativarBotaoReiniciar('container__botao','container__botao-desabilitado');
+}
 
+//Funcao para ativar e desativar o botao reiniciar
+function ativarDesativarBotaoReiniciar(atributoAtual, atributoNovo){
+    let botaoReiniciar = document.getElementById('btn-reiniciar');
+    botaoReiniciar.classList.remove(`${atributoAtual}`);
+    botaoReiniciar.classList.add(`${atributoNovo}`);
+
+}
+
+//Funcao para reiniciar os textos e campos ao clicar no botao reiniciar
+function reiniciarTexto(){
     let mensagemNumerosSorteados = document.getElementById('resultado');
     mensagemNumerosSorteados.innerHTML = 'Números sorteados:  nenhum até agora'
 
@@ -47,10 +61,6 @@ function reiniciar(){
     
     let numeroMin = document.getElementById('de');
     numeroMin.value = '';    
-    
-    let botaoReiniciar = document.getElementById('btn-reiniciar');
-    botaoReiniciar.classList.remove('container__botao');
-    botaoReiniciar.classList.add('container__botao-desabilitado');
 }
 
 let numerosSorteados = [];
