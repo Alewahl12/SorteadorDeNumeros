@@ -1,8 +1,9 @@
 //Funcao para sortear quantidade de numeros especificada ao clicar no botao e mostrar na tela e ativar o botao reiniciar
 function sortear(){
-    let numeroMax = parseInt(document.getElementById('ate').value);
+    let quantidadeNumeros = parseInt(document.getElementById('quantidade').value);
     let numeroMin = parseInt(document.getElementById('de').value);
-    let quantidadeNumeros = document.getElementById('quantidade').value;
+    let numeroMax = parseInt(document.getElementById('ate').value);
+
     if (quantidadeNumeros > numeroMax){
 
         respostaBotaoSortear('A quantidade de números não pode ser maior que o número máximo!');
