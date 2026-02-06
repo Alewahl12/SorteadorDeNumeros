@@ -3,35 +3,39 @@ function sortear(){
     let quantidadeNumeros = parseInt(document.getElementById('quantidade').value);
     let numeroMin = parseInt(document.getElementById('de').value);
     let numeroMax = parseInt(document.getElementById('ate').value);
+    let numerosSorteados = [];
+    let numeroGerado;
 
-    if (quantidadeNumeros > numeroMax){
+    if (quantidadeNumeros > numeroMax ){
 
-        respostaBotaoSortear('A quantidade de números não pode ser maior que o número máximo!');
-        
+        exibirMensagem('A quantidade de números não pode ser maior que o número máximo!');
+        return;
+    }else if((numeroMax-numeroMin+1) < quantidadeNumeros){
+        exibirMensagem('Intervalo de numeros invalido!');
+        return;
+
     }else{
-        for (i = quantidadeNumeros;i>0;i--){
-            gerarNumeroAleatorio(numeroMax,numeroMin);
+        for (let i = quantidadeNumeros; i>0; i--){
+            numeroGerado = gerarNumeroAleatorio(numeroMax,numeroMin);
+            while(numerosSorteados.includes(numeroGerado)){
+                numeroGerado = gerarNumeroAleatorio(numeroMax,numeroMin);
+            }
+            numerosSorteados.push(numeroGerado);
         }
-        respostaBotaoSortear(`Números sorteados: ${numerosSorteados}`);
+        exibirMensagem(`Números sorteados: ${numerosSorteados}`);
         ativarDesativarBotaoReiniciar('container__botao-desabilitado','container__botao');
     }
-
 }
 
 //Funcao para imprimir a resposta na tela ao clicar no botao  sortear
-function respostaBotaoSortear(mensagem){
+function exibirMensagem(mensagem){
     let mensagemNumerosSorteados = document.getElementById('resultado');
-    mensagemNumerosSorteados.innerHTML = `${mensagem}`;
+    mensagemNumerosSorteados.innerHTML = `<label class="texto__paragrafo">${mensagem}</label>`;
 }
 
 //Funcao para gerar numero aleatório e adicionar na lista de numerosSorteados se nao for repetido (se ainda nao tiver o numero na lista)
 function gerarNumeroAleatorio(numMax, numMin){
-    let numeroEscolhido = parseInt(Math.random()*(numMax - numMin + 1)+numMin);
-    if (numerosSorteados.includes(numeroEscolhido)){
-        return gerarNumeroAleatorio(numMax,numMin);
-    } else {
-        numerosSorteados.push(numeroEscolhido);
-    }
+    return parseInt(Math.random()*(numMax - numMin + 1)+numMin);
 }
 
 //Funcao para reiniciar e limpar valores nas caixas, limpar a lista de numeros sorteados e desativar o botao reiniciar
@@ -42,17 +46,17 @@ function reiniciar(){
 }
 
 //Funcao para ativar e desativar o botao reiniciar
-function ativarDesativarBotaoReiniciar(atributoAtual, atributoNovo){
+function ativarDesativarBotaoReiniciar(classeAtual, classeNova){
     let botaoReiniciar = document.getElementById('btn-reiniciar');
-    botaoReiniciar.classList.remove(`${atributoAtual}`);
-    botaoReiniciar.classList.add(`${atributoNovo}`);
+    botaoReiniciar.classList.remove(`${classeAtual}`);
+    botaoReiniciar.classList.add(`${classeNova}`);
 
 }
 
 //Funcao para reiniciar os textos e campos ao clicar no botao reiniciar
 function reiniciarTexto(){
-    let mensagemNumerosSorteados = document.getElementById('resultado');
-    mensagemNumerosSorteados.innerHTML = 'Números sorteados:  nenhum até agora'
+
+    exibirMensagem('Números sorteados:  nenhum até agora');
 
     let quantidadeNumeros = document.getElementById('quantidade');
     quantidadeNumeros.value = '';
@@ -63,5 +67,3 @@ function reiniciarTexto(){
     let numeroMin = document.getElementById('de');
     numeroMin.value = '';    
 }
-
-let numerosSorteados = [];
